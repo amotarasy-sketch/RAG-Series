@@ -1,0 +1,15 @@
+numpy
+torch
+faiss-cpu
+pymorphy3
+lxml
+openai
+sentence-transformers
+transformers
+python-dotenv
+typer[all]
+
+fastapi
+uvicorn[standard]
+pydantic
+httpx

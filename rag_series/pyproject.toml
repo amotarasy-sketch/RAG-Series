@@ -1,0 +1,74 @@
+[project]
+name = "rag-series"
+version = "0.1.0"
+description = "Local RAG assistant for FB2 book series with hybrid search and reranking."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "torch",
+  "faiss-cpu",
+  "pymorphy3",
+  "lxml",
+  "openai",
+  "sentence-transformers",
+  "transformers",
+  "python-dotenv",
+  "typer[all]",
+  "fastapi",
+  "pydantic",
+  "uvicorn[standard]",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "httpx",
+  "ruff>=0.6.0",
+  "build",
+]
+
+[project.scripts]
+rag-series = "rag_series.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["rag_series", "tests", "eval", "benchmark"]
+exclude = [
+  ".git",
+  ".mypy_cache",
+  ".pytest_cache",
+  ".ruff_cache",
+  ".venv",
+  "__pycache__",
+  "build",
+  "dist",
+]
+
+[tool.ruff.lint]
+select = [
+  "E",  # pycodestyle errors
+  "F",  # pyflakes
+  "I",  # isort
+  "B",  # flake8-bugbear
+]
+ignore = [
+  "B008", # Typer uses function calls in default argument values for CLI options.
+  "E501", # Keep long Russian prompt strings readable; formatter still wraps regular code.
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["rag_series"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+
+[tool.setuptools]
+packages = ["rag_series"]

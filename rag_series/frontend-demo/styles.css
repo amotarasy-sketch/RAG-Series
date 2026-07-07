@@ -1,0 +1,158 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #101827;
+  color: #eef2ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.24), transparent 32rem), #101827;
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.hero {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #a5b4fc;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  line-height: 0.95;
+  margin-bottom: 16px;
+}
+
+.hero p:last-child {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.76);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
+}
+
+.settings-card {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin: 14px 0 8px;
+  color: #dbeafe;
+  font-weight: 650;
+}
+
+.inline {
+  display: flex;
+  gap: 10px;
+}
+
+input,
+textarea,
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  font: inherit;
+}
+
+input,
+textarea {
+  padding: 12px 14px;
+  background: rgba(15, 23, 42, 0.88);
+  color: #eef2ff;
+  outline: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #818cf8;
+  color: #0f172a;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.inline button {
+  width: auto;
+  min-width: 150px;
+  margin-top: 0;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+.output {
+  overflow: auto;
+  min-height: 120px;
+  max-height: 430px;
+  margin: 18px 0 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.7);
+  color: #bfdbfe;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 780px) {
+  .grid,
+  .inline {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .inline button {
+    width: 100%;
+  }
+}

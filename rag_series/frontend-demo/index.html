@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG Series API Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">FastAPI + local RAG</p>
+        <h1>RAG Series API Demo</h1>
+        <p>
+          A tiny static frontend for trying the local API: check readiness, search chunks,
+          ask the assistant, and inspect sources returned by the backend.
+        </p>
+      </section>
+
+      <section class="card settings-card">
+        <label for="apiBase">API base URL</label>
+        <div class="inline">
+          <input id="apiBase" type="url" value="http://127.0.0.1:8000" />
+          <button id="healthBtn" type="button">Check health</button>
+        </div>
+        <pre id="healthOutput" class="output" aria-live="polite">Not checked yet.</pre>
+      </section>
+
+      <section class="grid">
+        <form id="askForm" class="card">
+          <h2>Ask</h2>
+          <label for="question">Question</label>
+          <textarea id="question" rows="5" placeholder="Who is the main character?" required></textarea>
+          <button type="submit">Ask API</button>
+          <pre id="askOutput" class="output" aria-live="polite"></pre>
+        </form>
+
+        <form id="searchForm" class="card">
+          <h2>Search</h2>
+          <label for="query">Query</label>
+          <input id="query" type="text" placeholder="dragon castle prophecy" required />
+          <label for="topK">Top K</label>
+          <input id="topK" type="number" min="1" max="50" value="5" />
+          <label class="checkbox">
+            <input id="includeText" type="checkbox" /> Include chunk text
+          </label>
+          <button type="submit">Search API</button>
+          <pre id="searchOutput" class="output" aria-live="polite"></pre>
+        </form>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

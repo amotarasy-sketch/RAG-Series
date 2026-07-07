@@ -1,0 +1,56 @@
+services:
+  rag-series:
+    build: .
+    image: rag-series:local
+    gpus: all
+    env_file:
+      - .env
+    environment:
+      BOOKS_DIR: /data/books
+      CHUNKS_DIR: /data/chunks
+      # Use this when LM Studio / Ollama / another OpenAI-compatible server runs on the host.
+      LLM_BASE_URL: http://host.docker.internal:1234/v1
+      DEVICE: ${DEVICE:-auto}
+      COMPILE_RERANKER: ${COMPILE_RERANKER:-true}
+      API_LOAD_ON_STARTUP: ${API_LOAD_ON_STARTUP:-true}
+      FAISS_DISABLE_CPU_FEATURES: ${FAISS_DISABLE_CPU_FEATURES:-AVX2}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    volumes:
+      - ./Books:/data/books:ro
+      - ./Chunks:/data/chunks
+      - rag-series-models:/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    stdin_open: true
+    tty: true
+
+  rag-api:
+    build: .
+    image: rag-series:local
+    gpus: all
+    entrypoint: ["uvicorn"]
+    command: ["rag_series.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    env_file:
+      - .env
+    environment:
+      BOOKS_DIR: /data/books
+      CHUNKS_DIR: /data/chunks
+      LLM_BASE_URL: http://host.docker.internal:1234/v1
+      DEVICE: ${DEVICE:-auto}
+      COMPILE_RERANKER: ${COMPILE_RERANKER:-true}
+      API_LOAD_ON_STARTUP: ${API_LOAD_ON_STARTUP:-true}
+      FAISS_DISABLE_CPU_FEATURES: ${FAISS_DISABLE_CPU_FEATURES:-AVX2}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./Books:/data/books:ro
+      - ./Chunks:/data/chunks
+      - rag-series-models:/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  rag-series-models:
